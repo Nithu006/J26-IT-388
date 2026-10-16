@@ -1,0 +1,49 @@
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Local IDE settings
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Research datasets
+data/raw/
+data/processed/
+data/synthetic/
+
+# Trained model artifacts
+models/*.pkl
+models/*.joblib
+models/*.pt
+models/*.pth
+models/*.h5
+models/*.onnx
+models/*.safetensors
+
+# Temporary experiment artifacts
+experiments/tmp/
+logs/
+*.log
