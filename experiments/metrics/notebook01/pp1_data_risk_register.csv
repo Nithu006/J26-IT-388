@@ -1,0 +1,8 @@
+risk,evidence,recommended_action
+Cross-split identical text,3 normalized texts shared,Identify overlap; plan a contamination-sensitive secondary evaluation without changing the original benchmark split.
+Post/source correlations,495 repeated post IDs in train,Assess grouped validation in later modeling stage; avoid source-identity leakage.
+Subreddit confounding,10 training subreddits,Evaluate subgroup distributions and report domain generalization limitations.
+Annotation metadata leakage,confidence and IDs included in CSV,Do not feed annotation confidence or record IDs to predictive model.
+Missing person-level histories,No verified user-level longitudinal identifier,"Use clearly marked synthetic sequences for scoring mechanics, not real-world temporal validation."
+Clinical overinterpretation,Binary stress-related text annotation,Do not label model output a diagnosis or validated individual mental-health risk.
+Data usage rights,CSV files alone do not prove redistribution rights,"Verify original dataset license, research terms and privacy obligations."
