@@ -1,0 +1,14 @@
+{
+  "train": {
+    "valid_timestamps": 2838,
+    "invalid_timestamps": 0,
+    "min_utc": "2017-01-01 12:36:58+00:00",
+    "max_utc": "2018-11-19 01:54:20+00:00"
+  },
+  "test": {
+    "valid_timestamps": 715,
+    "invalid_timestamps": 0,
+    "min_utc": "2017-01-02 04:02:57+00:00",
+    "max_utc": "2018-11-18 23:20:24+00:00"
+  }
+}
