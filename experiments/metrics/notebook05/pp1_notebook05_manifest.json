@@ -1,0 +1,126 @@
+{
+  "project": "J26-IT-388 Component 4",
+  "notebook": "05_adaptive_scoring",
+  "run_utc": "2026-10-18T07:00:31.039129+00:00",
+  "task": "proof-of-concept temporal scoring only; no original model training",
+  "model_sha256_before": "9181e2de08549dd2971180a859c7a142d3ed340e98c24b366edd1def0468d504",
+  "model_sha256_after": "9181e2de08549dd2971180a859c7a142d3ed340e98c24b366edd1def0468d504",
+  "test_sha256": "a3b6c9bf5d685f49d57e05d24266dddc52999843256b13e65c07267c543175fe",
+  "test_rows": 715,
+  "source_of_scores": "frozen-model held-out predictions rearranged into fictional sequences; manual synthetic shock and all-missing sequences",
+  "all_sequences_synthetic": true,
+  "timestamps_real": false,
+  "same_user_observations": false,
+  "params": {
+    "alpha": 0.35,
+    "max_consecutive_missing_before_unavailable": 2,
+    "illustrative_lower_bound": 0.35,
+    "illustrative_higher_bound": 0.65
+  },
+  "comparative_metrics": [
+    {
+      "scenario": "constant_model_score",
+      "n_steps": 9,
+      "n_observed": 9,
+      "n_missing": 0,
+      "static_mean_abs_consecutive_change": 0.0,
+      "adaptive_mean_abs_consecutive_change": 0.0,
+      "mean_abs_adaptive_vs_static": 0.0,
+      "n_prototype_attention_flags": 0,
+      "n_unavailable_steps": 0
+    },
+    {
+      "scenario": "decreasing_model_scores",
+      "n_steps": 9,
+      "n_observed": 9,
+      "n_missing": 0,
+      "static_mean_abs_consecutive_change": 0.07605874081847504,
+      "adaptive_mean_abs_consecutive_change": 0.056883925374393324,
+      "mean_abs_adaptive_vs_static": 0.09390362284026836,
+      "n_prototype_attention_flags": 4,
+      "n_unavailable_steps": 0
+    },
+    {
+      "scenario": "increasing_model_scores",
+      "n_steps": 9,
+      "n_observed": 9,
+      "n_missing": 0,
+      "static_mean_abs_consecutive_change": 0.07605874081847504,
+      "adaptive_mean_abs_consecutive_change": 0.05836159246967586,
+      "mean_abs_adaptive_vs_static": 0.09634294629914744,
+      "n_prototype_attention_flags": 1,
+      "n_unavailable_steps": 0
+    },
+    {
+      "scenario": "manual_all_missing",
+      "n_steps": 9,
+      "n_observed": 0,
+      "n_missing": 9,
+      "static_mean_abs_consecutive_change": null,
+      "adaptive_mean_abs_consecutive_change": null,
+      "mean_abs_adaptive_vs_static": null,
+      "n_prototype_attention_flags": 0,
+      "n_unavailable_steps": 9
+    },
+    {
+      "scenario": "manual_shock_test",
+      "n_steps": 9,
+      "n_observed": 9,
+      "n_missing": 0,
+      "static_mean_abs_consecutive_change": 0.1875,
+      "adaptive_mean_abs_consecutive_change": 0.09861681005859374,
+      "mean_abs_adaptive_vs_static": 0.16279600390625001,
+      "n_prototype_attention_flags": 0,
+      "n_unavailable_steps": 0
+    },
+    {
+      "scenario": "missing_model_scores",
+      "n_steps": 9,
+      "n_observed": 5,
+      "n_missing": 4,
+      "static_mean_abs_consecutive_change": 0.08788726721172022,
+      "adaptive_mean_abs_consecutive_change": 0.03076054352410207,
+      "mean_abs_adaptive_vs_static": 0.051197479235420854,
+      "n_prototype_attention_flags": 1,
+      "n_unavailable_steps": 1
+    },
+    {
+      "scenario": "oscillating_model_scores",
+      "n_steps": 9,
+      "n_observed": 9,
+      "n_missing": 0,
+      "static_mean_abs_consecutive_change": 0.3162614218960096,
+      "adaptive_mean_abs_consecutive_change": 0.06797609647546654,
+      "mean_abs_adaptive_vs_static": 0.11221450846743686,
+      "n_prototype_attention_flags": 0,
+      "n_unavailable_steps": 0
+    }
+  ],
+  "validation": {
+    "passed": 13,
+    "total": 13
+  },
+  "runtime": {
+    "n_synthetic_steps": 63,
+    "n_scenarios": 7,
+    "repetitions": 200,
+    "mean_full_batch_seconds": 0.02673019950016169,
+    "mean_ms_per_synthetic_step_estimate": 0.42428888095494743,
+    "warning": "local Python dataframe processing benchmark; not individual endpoint p95 or end-to-end user latency"
+  },
+  "library_versions": {
+    "python": "3.12.0",
+    "pandas": "3.0.6",
+    "numpy": "2.5.4",
+    "sklearn": "1.8.0"
+  },
+  "limitations": [
+    "Dreaddit has no verified per-user longitudinal trajectories; these are fictional sequences",
+    "Model outputs concern stress-related text labels, not calibrated clinical mental-health risk",
+    "Score smoothing cannot establish early detection or improved predictive accuracy",
+    "0.35/0.65 threshold bands and alpha=0.35 are illustrative design choices, not validated clinical cutoffs",
+    "Smoothing delays reactions to genuine changes; stale observations suppress flags",
+    "Post examples are repurposed from unrelated held-out samples; no real user timeline is implied",
+    "No clinician or human usability evaluation, and no real-time API benchmark, has been performed"
+  ]
+}
