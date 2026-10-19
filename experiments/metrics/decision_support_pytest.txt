@@ -1,0 +1,39 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.0, pytest-9.1.1, pluggy-1.7.0 -- E:\DevPlux\Campus - Research Projects\J26-IT-388_G41\J26-IT-388\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: E:\DevPlux\Campus - Research Projects\J26-IT-388_G41\J26-IT-388
+plugins: anyio-4.15.1, platformdirs-4.13.3
+collecting ... collected 30 items
+
+tests/test_decision_support.py::test_initial_score PASSED                [  3%]
+tests/test_decision_support.py::test_ema_calculation PASSED              [  6%]
+tests/test_decision_support.py::test_alpha_one PASSED                    [ 10%]
+tests/test_decision_support.py::test_invalid_alpha[-0.1] PASSED          [ 13%]
+tests/test_decision_support.py::test_invalid_alpha[0] PASSED             [ 16%]
+tests/test_decision_support.py::test_invalid_alpha[1.1] PASSED           [ 20%]
+tests/test_decision_support.py::test_invalid_alpha[True] PASSED          [ 23%]
+tests/test_decision_support.py::test_invalid_alpha[nan] PASSED           [ 26%]
+tests/test_decision_support.py::test_invalid_probability[-0.1] PASSED    [ 30%]
+tests/test_decision_support.py::test_invalid_probability[1.1] PASSED     [ 33%]
+tests/test_decision_support.py::test_invalid_probability[inf] PASSED     [ 36%]
+tests/test_decision_support.py::test_invalid_probability[True] PASSED    [ 40%]
+tests/test_decision_support.py::test_invalid_probability[0.5] PASSED     [ 43%]
+tests/test_decision_support.py::test_missing_data_suppresses_indicators PASSED [ 46%]
+tests/test_decision_support.py::test_unavailable_after_gap PASSED        [ 50%]
+tests/test_decision_support.py::test_reinitialize_after_gap PASSED       [ 53%]
+tests/test_decision_support.py::test_recommendation_boundaries[0.0-INFO_001] PASSED [ 56%]
+tests/test_decision_support.py::test_recommendation_boundaries[0.3499-INFO_001] PASSED [ 60%]
+tests/test_decision_support.py::test_recommendation_boundaries[0.35-INFO_002] PASSED [ 63%]
+tests/test_decision_support.py::test_recommendation_boundaries[0.6499-INFO_002] PASSED [ 66%]
+tests/test_decision_support.py::test_recommendation_boundaries[0.65-INFO_003] PASSED [ 70%]
+tests/test_decision_support.py::test_recommendation_boundaries[1.0-INFO_003] PASSED [ 73%]
+tests/test_decision_support.py::test_uncertain_probability_suppresses_indicator PASSED [ 76%]
+tests/test_decision_support.py::test_stale_data_has_priority PASSED      [ 80%]
+tests/test_decision_support.py::test_integrated_pipeline PASSED          [ 83%]
+tests/test_decision_support.py::test_high_score_attention PASSED         [ 86%]
+tests/test_decision_support.py::test_no_attention_for_missing_input PASSED [ 90%]
+tests/test_decision_support.py::test_pipeline_reset PASSED               [ 93%]
+tests/test_decision_support.py::test_deterministic_sequence PASSED       [ 96%]
+tests/test_decision_support.py::test_no_clinical_assessment_claims PASSED [100%]
+
+============================= 30 passed in 0.11s ==============================
