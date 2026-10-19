@@ -1,0 +1,25 @@
+{
+  "project": "J26-IT-388 Component 4",
+  "experiment": "Decision Support Engine Validation",
+  "generated_utc": "2026-10-18T07:35:07.670637+00:00",
+  "scenario_type": "synthetic",
+  "clinical_validation": false,
+  "n_scenarios": 7,
+  "n_observations": 31,
+  "rule_counts": {
+    "INFO_001": 8,
+    "INFO_003": 10,
+    "INFO_002": 7,
+    "DATA_001": 3,
+    "UNCERTAIN_001": 3
+  },
+  "attention_flags": 10,
+  "stale_alert_violations": 0,
+  "all_nonclinical": true,
+  "configuration": {
+    "alpha": 0.35,
+    "max_gap": 2,
+    "illustrative_lower_bound": 0.35,
+    "illustrative_higher_bound": 0.65
+  }
+}
