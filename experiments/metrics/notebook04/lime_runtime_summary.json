@@ -1,0 +1,8 @@
+{
+  "requests": 8,
+  "mean_seconds_per_explanation": 0.153326224994089,
+  "median_seconds_per_explanation": 0.1518600499985041,
+  "p95_seconds_per_explanation": 0.20219552499620475,
+  "num_perturbations": 1000,
+  "warning": "Local warm execution time; NOT end-to-end API or dashboard latency"
+}
