@@ -1,0 +1,55 @@
+{
+  "project": "J26-IT-388 Component 4",
+  "notebook": "04_lime_explanations",
+  "generated_utc": "2026-10-17T04:44:04.964919+00:00",
+  "task": "LIME explanations of frozen stress-related-text classifier; no original model training",
+  "model_sha256": "9181e2de08549dd2971180a859c7a142d3ed340e98c24b366edd1def0468d504",
+  "test_csv_sha256": "a3b6c9bf5d685f49d57e05d24266dddc52999843256b13e65c07267c543175fe",
+  "train_csv_sha256": "4e791e60d3f04dd9f14abb1228b0d4f92bf628cc84097c1c173401e98d355f4e",
+  "n_test_rows": 715,
+  "explained_cases": {
+    "true_positive": 10,
+    "true_negative": 1,
+    "false_positive": 22,
+    "false_negative": 53
+  },
+  "n_perturbations_per_explanation": 1000,
+  "random_seed": 42,
+  "num_features_per_case": 12,
+  "max_original_prediction_change": 0.0,
+  "fidelity": {
+    "n_cases": 4,
+    "mean_local_weighted_r2": 0.8099160491162068,
+    "min_local_weighted_r2": 0.7492682547029872,
+    "mean_abs_surrogate_probability_error": 0.006041674269638531,
+    "max_abs_surrogate_probability_error": 0.009753567108871875,
+    "note": "R2 on LIME perturbed neighborhood, not out-of-sample predictive R2"
+  },
+  "stability": {
+    "n_seeds_per_case": 5,
+    "n_cases": 4,
+    "mean_top_term_jaccard": 0.8585393772893772,
+    "min_top_term_jaccard": 0.7142857142857143,
+    "mean_sign_agreement_shared_terms": 1.0
+  },
+  "runtime": {
+    "requests": 8,
+    "mean_seconds_per_explanation": 0.153326224994089,
+    "median_seconds_per_explanation": 0.1518600499985041,
+    "p95_seconds_per_explanation": 0.20219552499620475,
+    "num_perturbations": 1000,
+    "warning": "Local warm execution time; NOT end-to-end API or dashboard latency"
+  },
+  "shap_comparison_rows": 4,
+  "python": "3.12.0",
+  "sklearn": "1.8.0",
+  "limitations": [
+    "LIME explanations are local surrogate approximations; local R2 is not clinical correctness",
+    "LIME probability-space surrogate weights cannot be compared numerically with SHAP log-odds",
+    "Stability depends on perturbation sampling, vocabulary, seeds and available text",
+    "Dreaddit is stress-related text annotation, not clinical mental health diagnosis",
+    "LIME may rely on common pronouns/context and should not be interpreted causally",
+    "Original test benchmark includes a few exact text overlaps reported in Notebook 01",
+    "Runtime is not production end-to-end latency"
+  ]
+}
