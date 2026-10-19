@@ -1,0 +1,20 @@
+{
+  "repeat_max_abs_difference": 0.0,
+  "background_top20_pairwise_jaccard": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "background_top20_mean_jaccard": 1.0,
+  "background_base_log_odds": [
+    0.11491157839688881,
+    -0.00903343459056738,
+    -0.05213398566315053
+  ],
+  "background_runtimes_seconds": [
+    0.040445599996019155,
+    0.03596099998685531,
+    0.04093339998507872
+  ],
+  "interpretation": "Background-dependent feature attributions; top-term overlap is descriptive, not a quality ground truth."
+}
