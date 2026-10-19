@@ -1,0 +1,35 @@
+{
+  "project": "J26-IT-388 Component 4",
+  "notebook": "03_shap_explainability",
+  "created_utc": "2026-10-17T03:44:15.519523+00:00",
+  "task": "Explain an existing binary stress-related-text classifier; no training",
+  "shap_output_units": "class 1 log-odds (linear decision function)",
+  "model_artifact_sha256": "9181e2de08549dd2971180a859c7a142d3ed340e98c24b366edd1def0468d504",
+  "train_csv_sha256": "4e791e60d3f04dd9f14abb1228b0d4f92bf628cc84097c1c173401e98d355f4e",
+  "test_csv_sha256": "a3b6c9bf5d685f49d57e05d24266dddc52999843256b13e65c07267c543175fe",
+  "train_rows": 2838,
+  "test_rows": 715,
+  "features": 20000,
+  "explained_test_rows": 120,
+  "reference_train_rows": 128,
+  "selection_seed": 42,
+  "max_abs_additivity_error_log_odds": 1.7763568394002505e-15,
+  "max_abs_reconstructed_probability_error": 3.3306690738754696e-16,
+  "mean_abs_global_top_term": "me",
+  "repeat_max_abs_difference": 0.0,
+  "mean_top20_jaccard_across_backgrounds": 1.0,
+  "package_versions": {
+    "python": "3.12.0",
+    "shap": "0.51.0",
+    "sklearn": "1.8.0",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6"
+  },
+  "limitations": [
+    "Text-only provisional classifier, not clinical mental health prediction",
+    "SHAP values are model-specific associations, not causal explanations",
+    "Background features may be dependent; results depend on chosen masking/reference distribution",
+    "Original Dreaddit test set includes three exact text overlaps with training",
+    "No human interpretability or clinical validation in this notebook"
+  ]
+}
