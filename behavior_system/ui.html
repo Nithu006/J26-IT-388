@@ -1,0 +1,120 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Behavioral Risk Analytics — J26-IT-388</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1c2233;--mut:#6b7488;--line:#e3e6ef;--ac:#4f46e5;--ac2:#0ea5e9;--low:#16a34a;--mod:#d97706;--high:#dc2626}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1220;--card:#181c30;--ink:#e8ebf7;--mut:#99a1bb;--line:#2a2f4a;--ac:#818cf8;--ac2:#38bdf8}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:18px 28px;border-bottom:1px solid var(--line);background:var(--card);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+h1{font-size:18px;margin:0}header small{color:var(--mut)}
+nav{display:flex;gap:6px;padding:10px 28px;flex-wrap:wrap}nav button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 16px;border-radius:999px;cursor:pointer;font:inherit}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+main{padding:8px 28px 40px;max-width:1200px;margin:auto}.tab{display:none}.tab.on{display:block}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h3{margin:0 0 10px;font-size:15px}.kpi b{display:block;font-size:28px}.kpi span{color:var(--mut);font-size:13px}
+.banner{margin:12px 28px 0;padding:10px 14px;border-radius:10px;background:#fef3c7;color:#78350f;border:1px solid #fcd34d;display:none}
+.warn{background:#fff7ed;color:#7c2d12;border:1px solid #fed7aa;border-radius:10px;padding:10px 14px;font-size:13px;margin-top:14px}
+@media (prefers-color-scheme:dark){.warn{background:#2b1d12;color:#fdba74;border-color:#7c4a1e}}
+.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}.step{flex:1;min-width:140px;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--card)}
+.step b{color:var(--ac)}.arrow{align-self:center;color:var(--mut)}
+select,textarea,button.act{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 12px}
+textarea{width:100%;height:170px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+button.act{background:var(--ac);color:#fff;border-color:var(--ac);cursor:pointer;margin-right:8px}button.act.sec{background:var(--card);color:var(--ink);border-color:var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}
+tr.best td{font-weight:600;color:var(--ac)}.pill{display:inline-block;padding:2px 12px;border-radius:999px;color:#fff;font-weight:600}
+.LOW{background:var(--low)}.MODERATE{background:var(--mod)}.HIGH{background:var(--high)}
+svg text{fill:var(--mut);font:11px system-ui}.muted{color:var(--mut)}ul{padding-left:20px;margin:6px 0}
+</style></head><body>
+<header><div><h1>Behavioral Analytics &amp; Temporal Learning</h1><small>Real-Time Explainable AI-Based Mental Health Risk Prediction · J26-IT-388 · Nithursanan S (IT23222090)</small></div>
+<small id="ds"></small></header>
+<div class="banner" id="syn"><b>SYNTHETIC DATA MODE</b> — numbers on screen come from computer-generated test data, not real users.</div>
+<nav id="nav"></nav>
+<main>
+<section class="tab on" id="t0">
+ <div class="grid g4" id="kpis"></div>
+ <div class="card" style="margin-top:16px"><h3>How this component works</h3><div class="flow">
+  <div class="step"><b>1 · Posts</b><br>User timelines (timestamp + text)</div><div class="arrow">→</div>
+  <div class="step"><b>2 · Windows</b><br>Groups of 5 consecutive posts, ordered in time</div><div class="arrow">→</div>
+  <div class="step"><b>3 · Features</b><br>Posting gap, gap variability, night ratio, post length, @mentions</div><div class="arrow">→</div>
+  <div class="step"><b>4 · LSTM</b><br>Learns how behaviour <i>changes over time</i></div><div class="arrow">→</div>
+  <div class="step"><b>5 · Output</b><br>16-dim behaviour vector + risk signal → Fusion (Kaveeja)</div></div>
+  <p class="muted" style="margin-bottom:0">Compared against non-temporal baselines (Logistic Regression, Random Forest) that only see per-user averages.</p></div>
+ <div class="warn"><b>Honest scope:</b> early-stage results on a small labelled sample; labels are dataset-provided (self-reported), not clinical diagnoses. This tool is a research prototype for risk <i>signals</i>, never a diagnosis.</div>
+</section>
+
+<section class="tab" id="t1">
+ <div class="card"><label>Choose a user from the dataset: <select id="usel"></select></label>
+  <span class="muted" id="uinfo" style="margin-left:12px"></span></div>
+ <div class="grid g2" style="margin-top:16px">
+  <div class="card"><h3>Risk signal (out-of-fold — model never saw this user)</h3><div id="ugauge"></div></div>
+  <div class="card"><h3>Cohort position (z-score vs all users)</h3><div id="ucmp"></div></div></div>
+ <div class="card" style="margin-top:16px"><h3>Behaviour over time (each point = window of 5 posts, standardised)</h3><div class="grid g2" id="useries"></div></div>
+</section>
+
+<section class="tab" id="t2">
+ <div class="card"><h3>Analyse a new timeline</h3>
+  <p class="muted" style="margin-top:0">Paste CSV with a timestamp column (<code>created_date</code>) and optional <code>anonymised_text</code>. Minimum 5 posts.</p>
+  <textarea id="csv"></textarea><p><button class="act" onclick="analyze()">Analyse</button><button class="act sec" onclick="sample('stable')">Load sample: regular daytime</button><button class="act sec" onclick="sample('night')">Load sample: irregular + night posting</button></p>
+  <div id="aerr" style="color:var(--high)"></div></div>
+ <div id="aout" style="display:none">
+  <div class="grid g2" style="margin-top:16px"><div class="card"><h3>Risk signal</h3><div id="agauge"></div></div>
+  <div class="card"><h3>What drives it? (deviation from cohort average, z)</h3><div id="adev"></div></div></div>
+  <div class="grid g2" style="margin-top:16px"><div class="card"><h3>Behaviour vector → sent to Multimodal Fusion</h3><div id="avec"></div></div>
+  <div class="card"><h3>Behaviour over time</h3><div id="aseries"></div></div></div></div>
+</section>
+
+<section class="tab" id="t3">
+ <div class="card"><h3>User-level cross-validation (5-fold × 5 repeats, scaler fit on train only)</h3><div id="rtable"></div></div>
+ <div class="card" id="rsrccard" style="margin-top:16px;display:none"><h3>Results per dataset (out-of-fold, merged training)</h3><div id="rsrc"></div>
+  <div class="warn"><b>Confound check:</b> the <i>Source-only</i> row predicts from which dataset a user came from and nothing else. If it scores close to the real models, the merged results mostly reflect dataset differences (e.g. Reddit users are all positive and have no text), not behaviour. Per-dataset rows are the fairer comparison; ROC-AUC is blank for a dataset with only one class.</div></div>
+ <div class="grid g2" style="margin-top:16px"><div class="card"><h3>F1 and ROC-AUC</h3><div id="rchart"></div></div>
+ <div class="card"><h3>Limitations (say these out loud)</h3><ul>
+  <li>Small sample (see Overview) — results are preliminary, with wide variance.</li>
+  <li>Labels are dataset-provided/self-reported, not clinical.</li>
+  <li><b>Night ratio is relative:</b> timestamps carry mixed UTC offsets, local time zone unknown.</li>
+  <li>No true engagement data (likes/replies) — @mentions and post length are proxies.</li>
+  <li>Risk thresholds in the demo are illustrative, not clinically validated.</li>
+  <li id="limsrc" style="display:none"><b>Merged datasets use different labels:</b> Thai = depression, Twitter-STMHD = any of 8 disorders vs control, Reddit = self-reported identity claim (all positive, no controls, no text → length/mentions are 0).</li>
+  <li>Next: full Twitter-STMHD, Transformer comparison, fusion with text &amp; image components.</li></ul></div></div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);let S;const tabs=["Overview","Cohort Explorer","Analyse New Timeline","Model Results"];
+$("nav").innerHTML=tabs.map((t,i)=>`<button onclick="show(${i})" id="b${i}">${t}</button>`).join("");
+function show(i){tabs.forEach((_,j)=>{$("t"+j).classList.toggle("on",i==j);$("b"+j).classList.toggle("on",i==j)})}
+const lvl=(p,t)=>p>=t.high?"HIGH":p>=t.moderate?"MODERATE":"LOW";
+function gauge(p){const t=S.thresholds,L=lvl(p,t);return `<div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap"><div style="font-size:44px;font-weight:700">${(p*100).toFixed(0)}%</div><div><span class="pill ${L}">${L}</span><div class="muted" style="font-size:12px;margin-top:6px">thresholds ${t.moderate}/${t.high} are illustrative</div></div></div>
+<svg viewBox="0 0 300 26" width="100%"><rect x="0" y="8" width="300" height="10" rx="5" fill="var(--line)"/><rect x="0" y="8" width="${p*300}" height="10" rx="5" fill="var(--${L.toLowerCase()})"/><line x1="${t.moderate*300}" x2="${t.moderate*300}" y1="3" y2="23" stroke="var(--mut)"/><line x1="${t.high*300}" x2="${t.high*300}" y1="3" y2="23" stroke="var(--mut)"/></svg>`}
+function line(vals,title){const w=300,h=110,n=vals.length,mx=Math.max(2.5,...vals.map(Math.abs));const x=i=>20+(n<2?130:i*(w-30)/(n-1)),y=v=>h/2-v/mx*(h/2-12);
+ return `<div><div class="muted" style="font-size:12px">${title}</div><svg viewBox="0 0 ${w} ${h}" width="100%"><line x1="20" x2="${w-10}" y1="${h/2}" y2="${h/2}" stroke="var(--line)"/><polyline fill="none" stroke="var(--ac)" stroke-width="2" points="${vals.map((v,i)=>x(i)+","+y(v)).join(" ")}"/>${vals.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="var(--ac)"/>`).join("")}<text x="2" y="14">+</text><text x="2" y="${h-4}">−</text></svg></div>`}
+function bars(items,fmt){const mx=Math.max(1e-9,...items.map(i=>Math.abs(i[1])));return `<svg viewBox="0 0 440 ${items.length*30+6}" width="100%">`+items.map((it,k)=>{const v=it[1],wd=Math.abs(v)/mx*110,x0=270,y=k*30+4;return `<text x="0" y="${y+14}">${it[0].slice(0,24)}</text><rect x="${v>=0?x0:x0-wd}" y="${y+2}" width="${wd}" height="16" rx="3" fill="${v>=0?"var(--ac)":"var(--ac2)"}"/><text x="436" y="${y+14}" text-anchor="end">${fmt(v)}</text>`}).join("")+`<line x1="270" x2="270" y1="0" y2="${items.length*30+6}" stroke="var(--line)"/></svg>`}
+function seriesCharts(series){return S.feats.map((f,j)=>line(series.map(r=>r[j]),S.labels[f])).join("")}
+async function init(){S=await (await fetch("/api/summary")).json();
+ $("ds").textContent=S.dataset;if(S.synthetic)$("syn").style.display="block";
+ $("kpis").innerHTML=[["Users analysed",S.n_users],["Labelled positive",S.n_pos],["Labelled negative",S.n_neg],["Window size",S.W+" posts"],["Min posts / user",S.min_posts]].map(k=>`<div class="card kpi"><b>${k[1]}</b><span>${k[0]}</span></div>`).join("")
+  +(Object.keys(S.sources||{}).length>1?Object.entries(S.sources).map(([s,c])=>`<div class="card kpi"><b>${c.n_users}</b><span>${s} users (${c.n_pos}+ / ${c.n_neg}−)</span></div>`).join(""):"");
+ const bySrc={};Object.entries(S.users).forEach(([u,v])=>(bySrc[v.source]=bySrc[v.source]||[]).push(u));
+ $("usel").innerHTML=Object.entries(bySrc).map(([s,us])=>`<optgroup label="${s}">${us.map(u=>`<option value="${u}">${u}${S.users[u].group&&S.users[u].group!=s?" · "+S.users[u].group:""}</option>`).join("")}</optgroup>`).join("");$("usel").onchange=loadUser;loadUser();
+ const R=S.results,bi=R.reduce((a,b,i)=>b.f1>R[a].f1?i:a,0),f3=v=>v==null?"—":v.toFixed(3);
+ if((S.results_by_source||[]).length){$("rsrccard").style.display="block";$("limsrc").style.display="list-item";
+  $("rsrc").innerHTML=`<table><tr><th>Dataset · Model</th><th>Users (+)</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th></tr>`+S.results_by_source.map(r=>`<tr><td>${r.source} · ${r.model.split(" (")[0]}</td><td>${r.n_users} (${r.n_pos})</td>${["accuracy","precision","recall","f1","roc_auc"].map(m=>`<td>${f3(r[m])}</td>`).join("")}</tr>`).join("")+`</table>`}
+ $("rtable").innerHTML=`<table><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th></tr>`+R.map((r,i)=>`<tr class="${i==bi?"best":""}"><td>${r.model}</td>${["accuracy","precision","recall","f1","roc_auc"].map(m=>`<td>${f3(r[m])} <span class="muted" style="font-size:11px">±${r[m+"_std"]==null?"—":r[m+"_std"].toFixed(2)}</span></td>`).join("")}</tr>`).join("")+`</table><p class="muted" style="font-size:12px">± = std across folds. Best F1 highlighted.</p>`;
+ const sp=400/R.length,bw=Math.min(40,sp/2-8);$("rchart").innerHTML=`<svg viewBox="0 0 420 190" width="100%">`+R.map((r,i)=>{const x=20+i*sp;return [["f1","var(--ac)"],["roc_auc","var(--ac2)"]].map(([m,c],k)=>`<rect x="${x+k*(bw+4)}" y="${160-r[m]*140}" width="${bw}" height="${r[m]*140}" fill="${c}" rx="3"/><text x="${x+k*(bw+4)+4}" y="${155-r[m]*140}">${r[m].toFixed(2)}</text>`).join("")+`<text x="${x}" y="178">${r.model.split(" (")[0].replace("Logistic Regression","LogReg").replace("Random Forest","RForest")}</text>`}).join("")+`<rect x="20" y="0" width="10" height="10" fill="var(--ac)"/><text x="34" y="9">F1</text><rect x="70" y="0" width="10" height="10" fill="var(--ac2)"/><text x="84" y="9">ROC-AUC</text></svg>`;
+ show(0)}
+async function loadUser(){const id=$("usel").value,u=await (await fetch("/api/user?id="+id)).json(),m=S.users[id];
+ $("uinfo").textContent=`${u.source||"thai"}${u.group&&u.group!=u.source?" ("+u.group+")":""} · dataset label: ${u.label?"positive":"negative"} · ${u.n_windows} windows`;
+ $("ugauge").innerHTML=gauge(u.risk_oof);
+ const z=S.feats.map((f,j)=>{const v=u.series.map(r=>r[j]);return [S.labels[f].split(" (")[0].slice(0,30),v.reduce((a,b)=>a+b,0)/v.length]});
+ $("ucmp").innerHTML=bars(z,v=>v.toFixed(2));$("useries").innerHTML=seriesCharts(u.series)}
+function sample(kind){const rows=["created_date,anonymised_text"];let t=Date.UTC(2023,0,2,9,0);const r=(()=>{let s=7;return()=>(s=(s*16807)%2147483647)/2147483647})();
+ for(let i=0;i<40;i++){if(kind=="stable")t+=(20+r()*8)*3600e3;else{t+=(r()<.3?60+r()*80:1+r()*10)*3600e3;if(r()<.4){const d=new Date(t);d.setUTCHours(Math.floor(r()*5),Math.floor(r()*60));t=d.getTime()}}
+  rows.push(new Date(t).toISOString().slice(0,19)+"+00:00,"+(kind=="stable"?"Nice day out with (user-1) and friends, had a long lunch together.":"cant sleep again"))}
+ $("csv").value=rows.join("\n")}
+async function analyze(){$("aerr").textContent="";const res=await fetch("/api/analyze",{method:"POST",body:JSON.stringify({csv:$("csv").value})}),r=await res.json();
+ if(r.error){$("aerr").textContent=r.error;return}
+ $("aout").style.display="block";$("agauge").innerHTML=gauge(r.risk)+`<p class="muted" style="font-size:13px">${r.n_posts} posts → ${r.n_windows} windows</p>`;
+ $("adev").innerHTML=bars(S.feats.map(f=>[S.labels[f].split(" (")[0].slice(0,30),r.deviation_z[f]]),v=>v.toFixed(2));
+ const mx=Math.max(...r.vector.map(Math.abs))||1;$("avec").innerHTML=`<svg viewBox="0 0 320 70" width="100%">`+r.vector.map((v,i)=>`<rect x="${i*20}" y="${35-v/mx*30}" width="16" height="${Math.abs(v)/mx*30}" fill="var(--ac)" transform="${v<0?`translate(0,${Math.abs(v)/mx*30})`:""}" rx="2"/>`).join("")+`<line x1="0" x2="320" y1="35" y2="35" stroke="var(--line)"/></svg><div class="muted" style="font-size:12px">16 numbers (LSTM state) — passed with the risk score to Kaveeja's fusion module.</div>`;
+ $("aseries").innerHTML=`<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">${seriesCharts(r.series)}</div>`}
+sample("night");init();
+</script></body></html>
