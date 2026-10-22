@@ -13,5 +13,6 @@ export async function request(path, options = {}) {
     if (response.status === 422) throw new ApiError('The API rejected these vector inputs. Check all 16 values.', 422);
     throw new ApiError('The API could not complete the request. Please retry.', response.status);
   }
-  return response.json();
+  try { return await response.json(); }
+  catch { throw new ApiError('The API returned an invalid response. Please retry.', response.status); }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PredictionForm from './components/prediction/PredictionForm.jsx';
 import PredictionResult from './components/prediction/PredictionResult.jsx';
 import { getModelInfo, predict } from './services/predictionService.js';
@@ -6,12 +6,14 @@ import './index.css';
 export default function App() {
   const [info, setInfo] = useState(null), [connection, setConnection] = useState('Checking API…');
   const [loading, setLoading] = useState(false), [result, setResult] = useState(null), [error, setError] = useState('');
+  const refreshSequence = useRef(0);
   async function refresh() {
+    const sequence = ++refreshSequence.current;
     setConnection('Checking API…');
-    try { const data = await getModelInfo(); setInfo(data); setConnection('API connected'); }
-    catch (e) { setInfo(null); setConnection(e.message); }
+    try { const data = await getModelInfo(); if (sequence !== refreshSequence.current) return; setInfo(data); setConnection('API connected'); }
+    catch (e) { if (sequence !== refreshSequence.current) return; setInfo(null); setConnection(e.message); }
   }
-  useEffect(() => { refresh(); }, []);
+  useEffect(() => { refresh(); return () => { refreshSequence.current++; }; }, []);
   async function submit(features) {
     setLoading(true); setError(''); setResult(null);
     try { setResult(await predict(features)); }
