@@ -2,7 +2,7 @@
 import hashlib
 import json
 import math
-from numbers import Real
+from numbers import Integral, Real
 from pathlib import Path
 
 FEATURES = tuple(f"bvec_{i}" for i in range(16))
@@ -50,10 +50,13 @@ def load_bundle(directory, *, trusted=False):
     root = Path(directory)
     try:
         metadata = json.loads((root / "metadata.json").read_text(encoding="utf-8"))
-        if (metadata.get("schema_version") != 1
+        if (not isinstance(metadata, dict)
+                or type(metadata.get("schema_version")) is not int
+                or metadata.get("schema_version") != 1
                 or metadata.get("purpose") != "exploratory_recorded_label"
                 or metadata.get("feature_names") != list(FEATURES)
                 or metadata.get("classes") != [0, 1]
+                or any(type(value) is not int for value in metadata["classes"])
                 or not isinstance(metadata.get("model_version"), str)
                 or not metadata["model_version"].strip()):
             raise ValueError("Incompatible metadata")
@@ -62,7 +65,9 @@ def load_bundle(directory, *, trusted=False):
             raise ValueError("Artifact checksum mismatch")
         import joblib
         pipeline = joblib.load(artifact)
-        if (list(pipeline.classes_) != [0, 1] or pipeline.n_features_in_ != 16
+        if (list(pipeline.classes_) != [0, 1]
+                or any(isinstance(value, bool) or not isinstance(value, Integral) for value in pipeline.classes_)
+                or pipeline.n_features_in_ != 16
                 or not callable(getattr(pipeline, "predict", None))):
             raise ValueError("Incompatible estimator")
     except Exception:
@@ -78,7 +83,8 @@ def predict_record(bundle, record):
     pipeline, metadata = bundle
     try:
         outputs = pipeline.predict([values])
-        if len(outputs) != 1 or outputs[0] not in (0, 1):
+        if (len(outputs) != 1 or isinstance(outputs[0], bool)
+                or not isinstance(outputs[0], Integral) or outputs[0] not in (0, 1)):
             raise ValueError("Invalid prediction")
     except Exception:
         raise ModelUnavailable("Model could not produce a valid recorded-label prediction.") from None
