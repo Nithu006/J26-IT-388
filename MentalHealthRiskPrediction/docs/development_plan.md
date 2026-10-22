@@ -1,24 +1,43 @@
-# Development plan and acceptance gates
+# Development status and acceptance gates
 
-| Phase | Scope and acceptance | Current status |
+Current documentation review: 2026-10-22. This table describes implementation, not
+research approval. Earlier phase notes remain in the historical structure mapping.
+
+| Area | Current status | Next acceptance condition |
 | --- | --- | --- |
-| 1 | Read complete PDF, inspect workspace, trace requirements and decisions | Complete |
-| 2 | Configurable loader/auditor; real source, label and leakage review | Tools implemented; real audit blocked by missing data |
-| 3 | Establish modules as needed, pin tested dependencies | Minimal audit structure only |
-| 4 | Validated text/numerics; approved group/time split; training-only fitting | Pending dataset contract |
-| 5 | Approved encoder, aligned fusion, binary/multiclass training and bundle | Pending data and architecture approval |
-| 6 | Four comparable experiments, tuning, held-out metrics and error analysis | Pending training |
-| 7 | Startup-loaded FastAPI, readiness, strict validation and API tests | Pending model/input contract |
-| 8 | Responsive React form, result/error states and API integration tests | Pending API contract |
-| 9 | Persistence only when justified and approved | No database required currently |
-| 10 | Preprocessing/fusion/serialization/API/UI tests and reproducibility | Audit tests available; later checks pending |
-| 11 | Setup, actual results, limitations, privacy and handover | Living documentation; final handover pending |
+| Requirements | Original guide review documented; guide excluded from publication | Resolve remaining supervisor decisions |
+| Data auditing | General audit and vector audit implemented; original 220-row audit documented | Obtain verified permissions and an approved data contract; no CSV is bundled |
+| Dependencies | Backend pins and frontend lockfile exist; copied frontend installation verified | Reproducible independent Python setup and reviewed ML dependency plan |
+| Input and inference contract | Strict 16-vector validation and trusted-bundle interface implemented | Broader contract tests and eventual authorized real-bundle verification |
+| Backend demo | Health/model-info/predict work, including 422 and model-unavailable 503 | Keep unavailable behavior; complete contracts before integrating any approved artifact |
+| Frontend demo | Numeric form, API integration, loading/errors and result interface work | Expand test discovery and accessibility checks |
+| Split and preprocessing | ML placeholders; no research split created | Approved groups, time rules and upstream leakage review |
+| Models and hybrid design | No fitting; text, behavior and fusion modules are placeholders | Approved data, target, feature lineage, paired text and architecture |
+| Research evaluation | Plan only; no model metrics | Freeze comparison protocol, then evaluate legitimately trained models |
+| Explanations | Placeholders | Agree teammate ownership, method and research scope |
+| Authentication and persistence | Placeholders; no working storage or login | Establish need and approved privacy/access/retention design first |
+| CI and packaging | Nested workflow inactive; Docker files are scaffolding | Review a root workflow and packaging separately |
 
-Next: provide authorized data and complete `open_questions.md`; run the audit, review
-its findings, then freeze a versioned data contract and split strategy. Agree supervisor
-hybrid interpretation before model implementation. Do not substitute generated labels
-or synthetic data for these gates.
+## Work that can proceed without training
 
-Later dependency work: choose a compatible pinned Python ML/API stack and React
-toolchain, install in an isolated environment, run smoke tests, and retain lockfiles.
-No untested dependency pins or nonexistent run commands are supplied now.
+Clarify documentation, improve reproducible setup, activate suitable CI after review,
+strengthen API/UI validation tests, improve error handling and accessibility, and
+review model-bundle validation. Use software fixtures rather than participant records.
+These activities must preserve explicit model-unavailable behavior.
+
+## Research work that remains blocked
+
+The original audited file had 220 records, below the supervisor's reported minimum
+of 1,000 for final training. It is not present in the GitHub checkout. More records
+alone would not resolve missing permission, label definitions or feature provenance.
+An exploratory pilot still needs documented permission and agreed scope; it would
+not satisfy the final-study minimum.
+
+Resolve [open questions](open_questions.md), verify dataset and vector lineage,
+agree participant/time/source leakage controls, and approve the proposed
+[research evaluation plan](research_readiness_next_steps.md) before fitting.
+Text-only and hybrid experiments need authorized, correctly paired real text.
+Never invent labels, text, approvals or results to complete a phase.
+
+See the [local demo guide](local_demo.md) for working commands and the distinction
+between earlier runtime verification and this documentation-only review.

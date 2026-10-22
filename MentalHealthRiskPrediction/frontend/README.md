@@ -1,21 +1,42 @@
-# frontend
+# Frontend
 
-**Update 2026-10-22:** the React/Vite UI is runnable; dependencies are pinned and the
-lockfile is saved. Run `npm.cmd run dev`, `npm.cmd test`, or `npm.cmd run build`.
-See [local demo guide](../docs/local_demo.md). Earlier scaffold-only statements below
-are historical and superseded by this update.
+The React application is mounted by `src/main.jsx` and served by Vite. Dependencies
+are pinned in `package.json` and `package-lock.json`; `node_modules` and `dist` are
+local ignored outputs. The copied checkout's dependencies were installed and its
+five active tests and production build passed before this documentation update.
 
-Purpose: reserved location for frontend.
-Status: starter structure only; implementation and contracts await review.
-No real data, trained model, results, authentication or persistence is provided.
-Research use only; not a clinical diagnostic system.
+## Working interface
 
-This is a React + Vite source skeleton, not a runnable frontend. `App.jsx` contains
-a research notice; `main.jsx` deliberately does not mount it. Other components
-are named placeholders returning null. No API requests or fake charts/results occur.
+The interface provides 16 numeric vector fields, required/finite-number validation,
+loading states, API connection refresh, network/422/503 error messages and a result
+section. It clears the previous result before sending another request. It stays
+usable when the backend or model is unavailable and does not invent predictions.
+The research notice refers to the original 220-record audit, not data shipped here.
 
-`package.json` is valid ES-module metadata with empty dependency maps. Runtime
-dependencies and dev/build/test scripts will be pinned and added after review.
-Do not interpret `npm install` as a working setup. No lockfile is generated yet.
-The optional `npm run check:scaffold` only syntax-checks one JS service stub.
-Full structure checks run from the root: `python scripts/validate_scaffold.py`.
+The default API URL is `http://127.0.0.1:8000`; configure `VITE_API_BASE_URL` through
+the process environment if needed. See the [local demo guide](../docs/local_demo.md)
+for startup instructions, dependency prerequisites and endpoint details.
+
+From this `frontend/` directory, with dependencies installed:
+
+```powershell
+npm.cmd test
+npm.cmd run build
+npm.cmd run dev
+```
+
+For a fresh checkout, restore dependencies with `npm.cmd ci` after installation is
+authorized. Do not assume a clone includes dependencies. The documented verified
+local tools are Node.js 22.14.0 and npm 10.9.2.
+
+## Test scope and unfinished features
+
+`vite.config.js` currently selects only `src/tests/demo.test.jsx`, containing five
+active tests. Other test files are placeholders outside that selection. The tests
+use mocked API responses, not a live backend or research model. A build checks
+bundling; it does not validate model performance.
+
+Login, history, dashboard, explanation charts and raw-text workflow components are
+placeholders, not working screens. The implemented result renderer can display a
+future real API result, but no trained model is supplied. There is no validated
+mental-health prediction, probability estimate or clinical diagnosis.

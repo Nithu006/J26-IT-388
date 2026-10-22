@@ -1,20 +1,49 @@
-# ml
+# ML tools and scaffolding
 
-Update 2026-10-21: vector auditing and a fail-closed training preflight are now
-implemented. See [training preparation](../docs/model_training.md). No model fitting
-is available; historical scaffold descriptions below apply to the remaining modules.
+No model has been trained for this component. There is no fitted bundle or measured
+research performance in this checkout. The original vector dataset is intentionally
+excluded; audit commands need a separately authorized local file.
 
-Purpose: reserved location for ml.
-Status: starter structure only; implementation and contracts await review.
-No real data, trained model, results, authentication or persistence is provided.
-Research use only; not a clinical diagnostic system.
+## Implemented tools
 
-`src/mental_health_ml/` reserves data, preprocessing, features, models, training,
-evaluation, explainability and inference modules. None train or predict yet.
-Use the existing `python -m training.inspect_data` from the repository root for
-actual audits. Its canonical configuration remains `config/dataset.example.json`.
+- The standard-library audit in `training/` at the component root reads a reviewed
+  private configuration and reports aggregate quality checks.
+- `scripts/check_dataset.py` and `data/validate_data.py` audit the reviewed vector
+  schema with pandas. They do not verify label meaning or permission.
+- `scripts/run_training.py` calls a readiness check. It always reports NO-GO after a
+  valid audit and never fits a model. An absent CSV causes an input error, not training.
+- `inference/prediction_pipeline.py` validates exactly 16 finite numeric inputs,
+  excludes non-vector fields when selecting candidates, and checks trust, metadata
+  and checksum before loading a joblib bundle. It contains a future recorded-label
+  prediction interface; no real fitted artifact has been tested with it.
+- The prediction CLI reports model unavailable when a usable trusted bundle is absent.
 
-The YAML files reserve model configuration and reference the existing data contract.
-No YAML loader or duplicate dataset schema is implemented. After review, define
-packaging, compatible pinned dependencies and API/shared inference contracts.
-`python -m unittest discover -s ml/tests -v` reports seven intentional skips.
+## Not implemented or approved
+
+Splitting, learned preprocessing, Transformer embeddings, behavior interpretation,
+fusion, classifier training, tuning, research evaluation and explainability remain
+scaffolding. YAML files are proposed configuration, not an implemented configuration
+loader. ML dependency packaging is incomplete; `requirements.txt` does not currently
+install the dependencies needed for vector auditing or future model fitting.
+
+The 0/1 tokens have no verified clinical interpretation. The bvec dimensions are
+candidate vectors with unverified provenance, not established raw behavioral measures.
+`participant_id`, `source`, `label` and `risk_oof` are excluded from candidate inputs.
+Permission, upstream leakage, target definitions, split design and architecture still
+need review. See [training gates](../docs/model_training.md),
+[decisions](../docs/open_questions.md) and
+[research readiness](../docs/research_readiness_next_steps.md).
+
+## Software checks
+
+From the component directory, with the required dependencies available:
+
+```powershell
+python -m unittest discover -s ml/tests -v
+```
+
+The suite defines ten active audit/readiness/inference tests and seven skipped
+placeholders. Some active tests require pandas; successful artifact loading is tested
+with mocks. These checks do not establish real model training, performance or a
+serialization round trip for a fitted estimator. This documentation update does not
+claim a new ML test run.

@@ -1,12 +1,14 @@
-# dataset
+# Dataset directory
 
-Purpose: reserved location for dataset.
-Status: starter structure only; implementation and contracts await review.
-No real data, trained model, results, authentication or persistence is provided.
-Research use only; not a clinical diagnostic system.
+The GitHub checkout intentionally contains no research dataset or CSV. `raw/`,
+`interim/` and `processed/` contain only empty-directory markers; `sample/` contains
+instructions, not sample participant records. Data contents are ignored by Git.
 
-`raw/`, `interim/` and `processed/` are reserved and ignored except `.gitkeep`.
-The existing `data/` directory is preserved. No data was moved or duplicated.
-Before real ingestion, choose the canonical storage location and update the existing
-local dataset configuration. No sample CSV was created because it is unnecessary
-for this structure-only phase.
+The [audit report](../docs/data_audit_report.md) describes the original working
+project's 220-record vector file. It is historical evidence, not an included file
+or permission to use it. Its label meanings and vector provenance remain unverified.
+
+Before local ingestion, verify permitted use, agree the storage location and populate
+a private dataset configuration from reviewed definitions. Preserve original data
+and do not publish it. See [research decisions](../docs/open_questions.md).
+The separate `data/` directory remains available; no data has been moved or duplicated.

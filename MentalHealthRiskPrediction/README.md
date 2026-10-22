@@ -1,89 +1,89 @@
 # Mental Health Risk Prediction
 
-## GitHub checkout scope
+Research title: Real-Time Explainable AI-Based Mental Health Risk Prediction Using Social Media.
+IT4010 / J26-IT-388 / Multimodal AI Fusion & Risk Prediction component.
 
-Run component commands from this `MentalHealthRiskPrediction/` directory, unless
-otherwise specified. Dependencies, datasets and fitted models are not included.
-Only safe `.env.example` templates are included; no credentials are supplied.
+## Current implementation
 
-Historical documentation and `docs/scaffold_manifest.json` describe the original
-workspace. The engineering guide PDF, UI screenshot, temporary renderings and
-personal-path scaffold generator were intentionally excluded from this checkout.
-Their historical references and hashes do not imply those assets are distributed.
+The local React/Vite interface and FastAPI backend demonstrate a request flow without
+a trained model. No model has been trained for this component, and no research
+performance or clinical validity has been established.
 
-The nested `.github/workflows/tests.yml` is retained as source but is not discovered
-by GitHub Actions. Future activation requires a reviewed repository-root workflow
-with `defaults.run.working-directory: MentalHealthRiskPrediction`, preserving group
-workflows. No CI execution is claimed for this checkout.
+| Area | Works now | Incomplete or unavailable |
+| --- | --- | --- |
+| Frontend | 16 numeric vector inputs, validation, loading/errors, API connection status and result display interface | Real trained-model results, text input workflow, history, login and dashboards |
+| Backend | GET `/health`, GET `/model-info`, POST `/predict`, strict input validation and local CORS configuration | Authentication, persistence and explanation services |
+| ML | Aggregate audit tools, training readiness checks, input validation and trusted-bundle loading interface | Model fitting, learned preprocessing, text embeddings, fusion, model comparisons and research evaluation |
 
+A valid request without a loaded model returns HTTP 503 and `Model not trained /
+unavailable`. Invalid requests return HTTP 422. The application does not substitute
+a fake prediction. An API connection is not evidence that a model is ready.
 
-**Current demo (2026-10-22):** React/Vite and FastAPI now run locally with strict
-vector validation and honest HTTP 503 model-unavailable behavior. No model trained.
-See [startup commands and verified behavior](docs/local_demo.md). Earlier scaffold
-status below is retained as historical context and superseded for these components.
+## Checkout contents and research limits
 
-IT4010 · J26-IT-388 · Individual component: Multimodal AI Fusion & Risk Prediction.
+The GitHub checkout intentionally excludes the original dataset. The documented
+220-record audit describes a CSV inspected in the original working project, not a
+CSV bundled here. The 1,000-record final-study requirement remains unmet by that
+original file. Label meanings, vector provenance, dataset-use permissions and
+applicable approvals remain unresolved. `risk_oof` is excluded from model inputs.
+There is no paired text dataset supporting text-only or complete hybrid experiments.
+The proposed Transformer plus behavioral features plus XGBoost design needs review.
 
-Status: requirements reviewed; configurable CSV loading and aggregate auditing implemented.
-No dataset, approved labels, trained model, API, frontend, or measured research results exist yet.
-The proposed Transformer + behavioral features + XGBoost architecture requires supervisor confirmation.
+Dataset directories contain only documentation and empty-directory markers. Private
+configuration, dependencies, build output and fitted artifacts are not tracked.
+Dependencies may be installed locally; they are not supplied by a Git clone.
+Only safe `.env.example` templates are provided, and they are not loaded automatically.
+
+The engineering guide PDF, screenshot, temporary renderings and personal scaffold
+generator were excluded from publication. Historical documents and
+`docs/scaffold_manifest.json` retain references to the original workspace; those
+references do not mean the excluded files are available in this checkout.
 
 ## Start here
 
+- [Local startup, endpoint behavior and verification history](docs/local_demo.md)
+- [Backend implementation](backend/README.md)
+- [Frontend implementation](frontend/README.md)
+- [ML implementation and limitations](ml/README.md)
+- [Development status and next steps](docs/development_plan.md)
+- [Research decisions and missing evidence](docs/open_questions.md)
+- [Original dataset audit](docs/data_audit_report.md)
+- [Research readiness assessment and proposed evaluation plan](docs/research_readiness_next_steps.md)
 - [Requirements and source traceability](docs/requirements_summary.md)
 - [Proposed architecture](docs/architecture.md)
-- [Implementation stages](docs/development_plan.md)
-- [Decisions needed before training](docs/open_questions.md)
-- [Data contract](docs/data_dictionary.md)
-- [Current audit status](docs/data_audit_report.md)
+- [Data contract template](docs/data_dictionary.md)
 
-## Run the available tools
+## Audit tools
 
-The audit uses only the Python standard library. Python 3.12.14 was used for validation.
-No pip packages are required at this stage. ML/backend/frontend dependencies will be
-selected, pinned and tested when their implementation gates are resolved.
+Run component commands from this `MentalHealthRiskPrediction/` directory unless
+otherwise stated. The general audit uses the Python standard library:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m unittest discover -s tests -v
 python -m training.inspect_data --help
-Copy-Item config\dataset.example.json config\dataset.local.json
-# Edit dataset.local.json to match authorized data and reviewed column definitions.
+python -m unittest discover -s tests -v
+python scripts/validate_scaffold.py
+```
+
+For authorized data only, create a private configuration from
+`config/dataset.example.json` if one does not already exist. Fill it from reviewed
+source definitions; paths are relative to that configuration's directory. Then use:
+
+```powershell
 python -m training.inspect_data --config config/dataset.local.json --output reports/data_audit.json
 ```
 
-Paths in the configuration are relative to its directory. The example deliberately has
-no dataset path or column mappings and will fail with a configuration error until filled.
-The audit exits 0 when structurally valid, 1 when data quality issues need review, and 2
-for configuration/file errors. Exit 0 is not permission to train: approval, language,
-label provenance, near-duplicate and temporal leakage review remain manual gates.
+The empty template is not a valid dataset mapping. The general audit exits 0 for
+no detected quality issues, 1 for quality issues, and 2 for configuration/file errors.
+A successful audit is not permission to train. The separate vector audit needs pandas;
+see [training preparation](docs/model_training.md). Keep real data and private audit
+outputs out of Git. Test fixtures are software checks, not research evidence.
 
-Only aggregate results are written. Reports can still contain sensitive class counts
-and column names: keep them restricted. Do not commit real data, local configuration,
-model artifacts or audit reports. Synthetic records in tests verify software only.
+## Automation and remaining scaffolding
 
-Training and application startup commands will be added when those components exist.
-Predictions, when implemented, are research estimates, not clinical diagnoses.
-
-## Full-stack scaffold added
-
-The requested ML, backend and React/Vite source structure now exists in this same
-workspace. These are starter files, not implemented applications. Existing audit
-tools and configuration remain the working code. See
-[file-by-file migration mapping](docs/folder_structure_migration.md).
-
-No third-party runtime dependencies were installed. ML/backend requirements files
-and frontend dependency maps are deliberately deferred until review; do not use
-`uvicorn`, `npm run dev`, Docker or training commands yet. New test placeholders
-explicitly skip and do not count as functional verification.
-
-```powershell
-python -m unittest discover -s tests -v
-python scripts/validate_scaffold.py
-python -m unittest discover -s ml/tests -v
-python -m unittest discover -s backend/tests -v
-```
-
-Notebook tooling was unavailable; see [notebook creation instructions](notebooks/README.md).
-Review the structure and unresolved decisions before the next implementation phase.
+The nested `.github/workflows/tests.yml` is not discovered by GitHub Actions.
+Activating CI requires a reviewed repository-root workflow and the component working
+directory, while preserving group workflows. No CI run is claimed here.
+Docker files, many optional pages/services and most model modules remain placeholders.
+Their presence does not establish working features. See the
+[historical structure mapping](docs/folder_structure_migration.md) and
+[notebook guidance](notebooks/README.md).
