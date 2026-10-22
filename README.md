@@ -1,4 +1,3 @@
-
 # J26-IT-388 — Real-Time Explainable AI-Based Mental Health Risk Prediction Using Social Media
 
 **Research Project:** Real-Time Explainable AI-Based Mental Health Risk Prediction Using Social Media  
@@ -15,6 +14,12 @@ This research aims to develop an AI-based framework for analyzing social media i
 The proposed system explores natural language processing (NLP), behavioral and temporal analysis, multimodal machine learning, and Explainable Artificial Intelligence (XAI).
 
 The research is divided into four interconnected components, each addressing a specific aspect of the overall problem.
+
+<p align="center">
+  <img src="diagram/img.png" alt="Overall Research Workflow" width="700"/>
+  <br/>
+  <em>Figure 1: Proposed Overall Research Workflow</em>
+</p>
 
 **Note:** The project is currently under research and development. The complete four-component system has not yet been fully integrated or validated.
 
@@ -45,11 +50,11 @@ The main objectives of this research are:
 
 ## 4. Research Components
 
-| Component | Research Area | Main Purpose |
-|---|---|---|
-| Component 1 | NLP-Based Text Analysis | Extract relevant information from social media text. |
-| Component 2 | Behavioral and Temporal Analysis | Investigate user activity patterns and changes over time. |
-| Component 3 | Multimodal Risk Prediction | Combine relevant information to develop a predictive model. |
+| Component   | Research Area                              | Main Purpose                                                                                         |
+| ----------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| Component 1 | NLP-Based Text Analysis                    | Extract relevant information from social media text.                                                 |
+| Component 2 | Behavioral and Temporal Analysis           | Investigate user activity patterns and changes over time.                                            |
+| Component 3 | Multimodal Risk Prediction                 | Combine relevant information to develop a predictive model.                                          |
 | Component 4 | Explainable AI & Adaptive Decision Support | Explain predictions, explore adaptive scoring, and provide transparent decision-support information. |
 
 ### Component 1 — NLP-Based Text Analysis
@@ -220,4 +225,4 @@ Detailed implementation reports, experimental results, and component-specific do
 
 ---
 
-*This README provides a high-level overview of the overall research project and will be updated as individual components are completed and integrated.*
+_This README provides a high-level overview of the overall research project and will be updated as individual components are completed and integrated._
