@@ -31,10 +31,10 @@ local tools are Node.js 22.14.0 and npm 10.9.2.
 
 ## Test scope and unfinished features
 
-`vite.config.js` currently selects only `src/tests/demo.test.jsx`, containing five
-active tests. Other test files are placeholders outside that selection. The tests
-use mocked API responses, not a live backend or research model. A build checks
-bundling; it does not validate model performance.
+`vite.config.js` discovers all `.test.js` and `.test.jsx` files under `src/tests/`.
+Focused form, result and API-client suites complement the application integration
+suite. Tests use software fixtures and mocked API responses, not participant records
+or a live research model. A build checks bundling, not model performance.
 
 Login, history, dashboard, explanation charts and raw-text workflow components are
 placeholders, not working screens. The implemented result renderer can display a
