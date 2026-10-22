@@ -29,11 +29,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Research datasets
-data/raw/
-data/processed/
-data/synthetic/
-
 # Trained model artifacts
 models/*.pkl
 models/*.joblib
