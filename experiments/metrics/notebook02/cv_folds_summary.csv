@@ -1,0 +1,6 @@
+fold,train_n,validation_n,validation_positive_rate,overlapping_post_ids
+1,2271,567,0.5238,0
+2,2269,569,0.5255,0
+3,2271,567,0.5238,0
+4,2271,567,0.5238,0
+5,2270,568,0.5246,0

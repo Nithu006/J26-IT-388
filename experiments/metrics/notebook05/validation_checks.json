@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "deterministic_repeat_run": true,
+    "all_available_scores_in_unit_interval": true,
+    "no_flags_without_fresh_input": true,
+    "all_missing_scenario_unavailable": true,
+    "no_change_on_identical_fresh_inputs": true,
+    "increasing_observations_nondecreasing": true,
+    "decreasing_observations_nonincreasing": true,
+    "long_missing_gap_unavailable": true,
+    "reappearance_resets_after_gap": true,
+    "initial_missing_do_not_fabricate": true,
+    "reject_out_of_range_probability": true,
+    "alpha_one_reduces_to_latest_observation": true,
+    "higher_alpha_reacts_faster_to_upward_shock": true
+  },
+  "passed": 13,
+  "total": 13
+}

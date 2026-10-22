@@ -1,0 +1,45 @@
+{
+  "project": "J26-IT-388 Component 4",
+  "notebook": "02_provisional_baseline",
+  "generated_utc": "2026-10-17T03:05:06.601910+00:00",
+  "seed": 42,
+  "training_data": {
+    "path": "data/raw/dreaddit/dreaddit-train.csv",
+    "sha256": "4e791e60d3f04dd9f14abb1228b0d4f92bf628cc84097c1c173401e98d355f4e",
+    "rows": 2838
+  },
+  "test_data": {
+    "path": "data/raw/dreaddit/dreaddit-test.csv",
+    "sha256": "a3b6c9bf5d685f49d57e05d24266dddc52999843256b13e65c07267c543175fe",
+    "rows": 715
+  },
+  "features": [
+    "text"
+  ],
+  "target": "label",
+  "classes": {
+    "0": "non-stress-related text",
+    "1": "stress-related text"
+  },
+  "cv": "StratifiedGroupKFold 5 folds grouped by post_id; train only",
+  "model": "word TF-IDF(1,2), min_df=2,max_df=0.95,max_features=20000 + LogisticRegression(C=1,solver=liblinear)",
+  "decision_threshold": 0.5,
+  "model_artifact": "models/dreaddit_tfidf_logreg.joblib",
+  "software": {
+    "python": "3.12.0",
+    "pandas": "3.0.6",
+    "numpy": "2.5.4",
+    "sklearn": "1.9.1",
+    "scipy": "1.18.1",
+    "joblib": "1.6.0",
+    "matplotlib": "3.11.2"
+  },
+  "risks": [
+    "Text-only classifier is provisional and not a diagnosis.",
+    "Three normalized text values appear in both splits; overlap-exclusion evaluation included.",
+    "Repeated train post IDs; grouped train CV applied.",
+    "Subreddit may be confounded with the target; subgroup audit included.",
+    "No true longitudinal user histories; temporal scoring remains separate.",
+    "A test set is not used for model selection, parameters, or decision threshold."
+  ]
+}

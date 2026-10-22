@@ -1,0 +1,28 @@
+
+# J26-IT-388 Component 4
+# Python 3.12
+# Core ML and data processing
+scikit-learn==1.9.1
+numpy==2.5.4
+pandas==3.0.6
+scipy==1.18.1
+joblib==1.6.0
+
+# Explainable AI
+shap
+lime
+
+# API
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0
+pydantic>=2.0,<3.0
+httpx
+
+# Testing
+pytest==9.1.1
+
+# Visualization and notebooks
+matplotlib
+seaborn
+jupyter
+ipykernel

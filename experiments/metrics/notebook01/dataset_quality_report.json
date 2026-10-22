@@ -1,0 +1,90 @@
+{
+  "project": "J26-IT-388 Component 4",
+  "notebook": "01_dataset_validation",
+  "generated_at_utc": "2026-10-16T14:51:24.285973+00:00",
+  "source_files": {
+    "dreaddit-train.csv": {
+      "bytes": 2721684,
+      "sha256": "4e791e60d3f04dd9f14abb1228b0d4f92bf628cc84097c1c173401e98d355f4e"
+    },
+    "dreaddit-test.csv": {
+      "bytes": 759266,
+      "sha256": "a3b6c9bf5d685f49d57e05d24266dddc52999843256b13e65c07267c543175fe"
+    }
+  },
+  "shape": {
+    "train": [
+      2838,
+      116
+    ],
+    "test": [
+      715,
+      116
+    ]
+  },
+  "column_set_equal": true,
+  "column_order_equal": false,
+  "null_cells": {
+    "train": 0,
+    "test": 0
+  },
+  "blank_text_rows": {
+    "train": 0,
+    "test": 0
+  },
+  "class_counts": {
+    "train": {
+      "1": 1488,
+      "0": 1350
+    },
+    "test": {
+      "1": 369,
+      "0": 346
+    }
+  },
+  "integrity": {
+    "train_duplicate_full_rows": 0,
+    "test_duplicate_full_rows": 0,
+    "train_duplicate_normalized_text": 18,
+    "test_duplicate_normalized_text": 0,
+    "cross_split_identical_normalized_texts": 3,
+    "cross_split_overlapping_post_ids": 0,
+    "cross_split_overlapping_ids": 0,
+    "train_duplicate_post_ids": 495,
+    "test_duplicate_post_ids": 129,
+    "train_duplicate_record_ids": 0,
+    "test_duplicate_record_ids": 0
+  },
+  "consistency": {
+    "unique_normalized_texts": 3532,
+    "identical_text_with_conflicting_labels": 6,
+    "post_ids_with_multiple_labels": 179
+  },
+  "numeric_quality": {
+    "constant_columns_train": [],
+    "infinite_numeric_cells": {
+      "train": 0,
+      "test": 0
+    },
+    "numeric_column_count": 112
+  },
+  "timestamps": {
+    "train": {
+      "valid_timestamps": 2838,
+      "invalid_timestamps": 0,
+      "min_utc": "2017-01-01 12:36:58+00:00",
+      "max_utc": "2018-11-19 01:54:20+00:00"
+    },
+    "test": {
+      "valid_timestamps": 715,
+      "invalid_timestamps": 0,
+      "min_utc": "2017-01-02 04:02:57+00:00",
+      "max_utc": "2018-11-18 23:20:24+00:00"
+    }
+  },
+  "limitations": [
+    "Stress text annotations are not clinical diagnoses",
+    "No verified user-level longitudinal history",
+    "No model was trained or evaluated in this notebook"
+  ]
+}

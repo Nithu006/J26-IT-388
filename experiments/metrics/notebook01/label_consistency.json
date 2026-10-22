@@ -1,0 +1,5 @@
+{
+  "unique_normalized_texts": 3532,
+  "identical_text_with_conflicting_labels": 6,
+  "post_ids_with_multiple_labels": 179
+}

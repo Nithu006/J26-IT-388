@@ -1,0 +1,8 @@
+scenario,n_steps,n_observed,n_missing,static_mean_abs_consecutive_change,adaptive_mean_abs_consecutive_change,mean_abs_adaptive_vs_static,n_prototype_attention_flags,n_unavailable_steps
+constant_model_score,9,9,0,0.0,0.0,0.0,0,0
+decreasing_model_scores,9,9,0,0.07605874081847504,0.056883925374393324,0.09390362284026836,4,0
+increasing_model_scores,9,9,0,0.07605874081847504,0.05836159246967586,0.09634294629914744,1,0
+manual_all_missing,9,0,9,,,,0,9
+manual_shock_test,9,9,0,0.1875,0.09861681005859374,0.16279600390625001,0,0
+missing_model_scores,9,5,4,0.08788726721172022,0.03076054352410207,0.051197479235420854,1,1
+oscillating_model_scores,9,9,0,0.3162614218960096,0.06797609647546654,0.11221450846743686,0,0

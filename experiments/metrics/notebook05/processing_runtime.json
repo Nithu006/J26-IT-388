@@ -1,0 +1,8 @@
+{
+  "n_synthetic_steps": 63,
+  "n_scenarios": 7,
+  "repetitions": 200,
+  "mean_full_batch_seconds": 0.02673019950016169,
+  "mean_ms_per_synthetic_step_estimate": 0.42428888095494743,
+  "warning": "local Python dataframe processing benchmark; not individual endpoint p95 or end-to-end user latency"
+}

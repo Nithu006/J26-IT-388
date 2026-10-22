@@ -1,0 +1,10 @@
+{
+  "dreaddit-train.csv": {
+    "bytes": 2721684,
+    "sha256": "4e791e60d3f04dd9f14abb1228b0d4f92bf628cc84097c1c173401e98d355f4e"
+  },
+  "dreaddit-test.csv": {
+    "bytes": 759266,
+    "sha256": "a3b6c9bf5d685f49d57e05d24266dddc52999843256b13e65c07267c543175fe"
+  }
+}

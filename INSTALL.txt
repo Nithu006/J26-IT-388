@@ -1,0 +1,12 @@
+MindLens AI — Dashboard Styling Update v3
+========================================
+
+1. From your repository root, back up dashboard/app.py.
+2. Replace dashboard/app.py with the app.py file in this package.
+3. Copy .streamlit/config.toml into your repository root.
+   If .streamlit/config.toml exists, back it up and merge its theme settings.
+4. Run FastAPI: python -m uvicorn src.api.main:app --reload --host 127.0.0.1 --port 8000
+5. Run Streamlit: python -m streamlit run dashboard/app.py
+6. Refresh browser using Ctrl+Shift+R. Restart Streamlit if theme settings do not apply.
+
+The backend source files and saved models do not change.

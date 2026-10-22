@@ -1,0 +1,8 @@
+{
+  "constant_columns_train": [],
+  "infinite_numeric_cells": {
+    "train": 0,
+    "test": 0
+  },
+  "numeric_column_count": 112
+}

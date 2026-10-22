@@ -1,0 +1,7 @@
+{
+  "n_seeds_per_case": 5,
+  "n_cases": 4,
+  "mean_top_term_jaccard": 0.8585393772893772,
+  "min_top_term_jaccard": 0.7142857142857143,
+  "mean_sign_agreement_shared_terms": 1.0
+}
