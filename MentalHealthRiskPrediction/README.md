@@ -80,9 +80,13 @@ outputs out of Git. Test fixtures are software checks, not research evidence.
 
 ## Automation and remaining scaffolding
 
-The nested `.github/workflows/tests.yml` is not discovered by GitHub Actions.
-Activating CI requires a reviewed repository-root workflow and the component working
-directory, while preserving group workflows. No CI run is claimed here.
+The repository-root `.github/workflows/mental-health-component.yml` runs component
+checks on relevant changes and supports manual dispatch. It uses read-only repository
+permissions and keeps separate Python and frontend jobs. Its JSON syntax is valid YAML.
+The older nested workflow remains a historical scaffold and is not discovered by
+GitHub Actions. The ML vector-audit suite needs pandas and is not included in CI yet;
+inference-contract tests use mocks and the Python standard library. An actual Actions
+run must be checked before claiming CI passed.
 Docker files, many optional pages/services and most model modules remain placeholders.
 Their presence does not establish working features. See the
 [historical structure mapping](docs/folder_structure_migration.md) and
