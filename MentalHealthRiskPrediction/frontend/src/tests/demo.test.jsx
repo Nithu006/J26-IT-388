@@ -70,3 +70,26 @@ describe('API reliability', () => {
     await expect(request('/predict')).rejects.toMatchObject({status:500,message:'The API could not complete the request. Please retry.'});
   });
 });
+
+describe('Accessible vector feedback', () => {
+  it('focuses the first invalid field and clears corrected errors', () => {
+    const submit = vi.fn(); render(<PredictionForm onSubmit={submit}/>);
+    fireEvent.click(screen.getByRole('button',{name:/Request prediction/}));
+    const first = document.getElementById('bvec_0');
+    expect(first).toHaveFocus();
+    expect(screen.getByRole('alert')).toHaveTextContent('16 vector input(s)');
+    expect(first).toHaveAttribute('aria-describedby','bvec_0-error');
+    fireEvent.change(first,{target:{value:'0'}});
+    expect(first).toHaveAttribute('aria-invalid','false');
+    expect(first).not.toHaveAttribute('aria-describedby');
+    expect(screen.getByRole('alert')).toHaveTextContent('15 vector input(s)');
+    fireEvent.click(screen.getByRole('button',{name:/Request prediction/}));
+    expect(document.getElementById('bvec_1')).toHaveFocus();
+    expect(submit).not.toHaveBeenCalled();
+  });
+  it('disables form controls while a request is pending', () => {
+    render(<PredictionForm loading={true} onSubmit={vi.fn()}/>);
+    for (const input of screen.getAllByRole('spinbutton')) expect(input).toBeDisabled();
+    expect(screen.getByRole('button',{name:/Requesting/})).toBeDisabled();
+  });
+});
