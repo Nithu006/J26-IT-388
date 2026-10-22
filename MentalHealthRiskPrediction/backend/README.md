@@ -37,3 +37,16 @@ python -m unittest discover -s backend/tests -v
 unavailable responses, validation, CORS and absent artifacts. Six older placeholder
 tests are skipped. Prior verification passed all five active tests; see the guide
 for its scope. Skipped tests do not verify unfinished features.
+
+## Environment configuration
+
+Relative `MODEL_DIR` paths resolve against the component directory regardless of
+where the process starts. Blank paths use the unavailable-model default directory.
+`CORS_ORIGINS` entries are trimmed and deduplicated; an explicitly empty list permits
+no cross-origin frontend access. Trust requires the literal value `true`, ignoring
+case and surrounding whitespace. These settings do not grant research permission.
+Configuration tests run independently with:
+
+```powershell
+python -B -m unittest discover -s backend/tests -p test_config.py -v
+```
