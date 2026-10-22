@@ -9,6 +9,7 @@ All time series are explicitly invented demonstrations, not per-person timelines
 from __future__ import annotations
 
 import os
+import math
 from typing import Any
 from html import escape
 
@@ -18,7 +19,6 @@ import streamlit as st
 
 API_BASE_URL = os.environ.get("API_BASE_URL", "http://127.0.0.1:8000").rstrip("/")
 DEMO_TEXT = "I have been feeling overwhelmed with my university assignments and deadlines."
-CALM_TEXT = "I enjoyed spending time with my friends and had a relaxing weekend."
 
 SCENARIOS: dict[str, list[float | None]] = {
     "Gradually increasing": [0.20, 0.28, 0.39, 0.52, 0.66, 0.78, 0.89],
@@ -345,34 +345,51 @@ st.warning("**Non-clinical research prototype.** Classifier predictions and arti
 with st.container(border=True):
     st.markdown('<div class="ml-section-title">Analyze a text sample</div>', unsafe_allow_html=True)
     with st.form("classify_text", clear_on_submit=False):
-        text = st.text_area("Sample text", value=st.session_state.get("draft_text", DEMO_TEXT), height=105, max_chars=10000,
-                            help="Use fictional demo text. Do not enter private health information.")
-        c1, c2 = st.columns([2, 1])
-        with c1:
-            example = st.selectbox("Quick examples", ["Use the text above", "Overwhelmed university student", "Relaxing weekend"], key="demo_select")
-        with c2:
-            st.write("")
-            submit = st.form_submit_button("Analyze text", type="primary", disabled=not online, use_container_width=True)
+        text = st.text_area(
+            "Sample text",
+            value=DEMO_TEXT,
+            height=120,
+            max_chars=10000,
+            help="Enter fictional demonstration text. Do not enter private health information.",
+        )
+        submit = st.form_submit_button(
+            "Analyze text",
+            type="primary",
+            disabled=not online,
+            use_container_width=True,
+        )
     if submit:
-        selected = text.strip() if example == "Use the text above" else (DEMO_TEXT if example == "Overwhelmed university student" else CALM_TEXT)
+        # Use exactly the visible text; no hidden preset overrides.
+        selected = text.strip()
         if not selected:
             st.error("Enter a non-empty text sample.")
+            # Never keep showing a previous prediction after a failed submission.
+            for key in ("prediction", "current_text", "explanations", "explanation_text", "explanation_top_k"):
+                st.session_state.pop(key, None)
         else:
             try:
                 with st.spinner("Running the frozen text classifier..."):
                     prediction = api_post("/predict", {"text": selected}, timeout=25)
+                model_p = float(prediction["probability_stress"])
+                if (not math.isfinite(model_p) or not 0 <= model_p <= 1
+                        or prediction["predicted_class"] not in (0, 1)
+                        or prediction.get("is_clinical_assessment") is not False):
+                    raise ValueError("Unexpected prediction API response")
                 st.session_state["current_text"] = selected
                 st.session_state["prediction"] = prediction
                 st.session_state.pop("explanations", None)
                 st.session_state.pop("explanation_text", None)
+                st.session_state.pop("explanation_top_k", None)
             except (httpx.HTTPError, ValueError, KeyError) as exc:
                 st.error(friendly_error(exc))
                 st.session_state.pop("prediction", None)
                 st.session_state.pop("current_text", None)
                 st.session_state.pop("explanations", None)
+                st.session_state.pop("explanation_text", None)
+                st.session_state.pop("explanation_top_k", None)
 
 if "prediction" not in st.session_state:
-    st.info("Choose a sample and click **Analyze text**. You can then explore the four dashboard areas below.")
+    st.info("Enter text and click **Analyze text**. You can then explore the four dashboard areas below.")
 else:
     result = st.session_state["prediction"]
     p = float(result["probability_stress"])
@@ -385,6 +402,7 @@ else:
     with c3:
         st.metric("Prediction model", "TF-IDF + LR")
     st.progress(max(0., min(1., p)))
+    st.caption("Result for the last submitted text. Edit the input and click Analyze text to update it.")
     interpretation_note()
 
 st.markdown(" ")
@@ -428,7 +446,13 @@ with explain_tab:
                         bundle[name] = {"error": friendly_error(exc)}
                 st.session_state["explanations"] = bundle
                 st.session_state["explanation_text"] = current_text
-        if st.session_state.get("explanation_text") == st.session_state["current_text"]:
+                st.session_state["explanation_top_k"] = top_k
+        # A changed slider must not display old results as though they used the new limit.
+        explanation_ready = (
+            st.session_state.get("explanation_text") == st.session_state["current_text"]
+            and st.session_state.get("explanation_top_k") == top_k
+        )
+        if explanation_ready:
             bundle = st.session_state.get("explanations", {})
             shap_data = bundle.get("shap", {})
             lime_data = bundle.get("lime", {})
@@ -458,7 +482,10 @@ with explain_tab:
                 else:
                     st.info("Generate explanations to view LIME output.")
         else:
-            st.info("Click the explanation button to compute the current sample's local attributions.")
+            if st.session_state.get("explanation_text") == st.session_state["current_text"]:
+                st.info("Maximum Features changed. Click **Generate SHAP + LIME** again to refresh the explanations and LIME fidelity metrics.")
+            else:
+                st.info("Click the explanation button to compute the current sample's local attributions.")
 
 with temporal_tab:
     st.markdown("### Adaptive score laboratory")
@@ -475,12 +502,19 @@ with temporal_tab:
             sequence = SCENARIOS[chosen]
             with st.spinner("Evaluating adaptive scoring and missing-data rules..."):
                 scenario_result = api_post("/decision-support", {"probabilities": sequence}, timeout=25)
+            if (not isinstance(scenario_result.get("results"), list)
+                    or len(scenario_result["results"]) != len(sequence)
+                    or scenario_result.get("sequence_length") != len(sequence)):
+                raise ValueError("Unexpected decision-support API response")
             st.session_state["scenario_result"] = scenario_result
             st.session_state["scenario_name"] = chosen
         except (httpx.HTTPError, ValueError, KeyError) as exc:
             st.error(friendly_error(exc))
             st.session_state.pop("scenario_result", None)
-    if "scenario_result" in st.session_state:
+            st.session_state.pop("scenario_name", None)
+    if "scenario_result" in st.session_state and st.session_state.get("scenario_name") != chosen:
+        st.info("A different scenario is selected. Click **Run scenario** to replace the previously computed results.")
+    if "scenario_result" in st.session_state and st.session_state.get("scenario_name") == chosen:
         scenario_name = st.session_state["scenario_name"]
         rows = st.session_state["scenario_result"]["results"]
         chart_df = pd.DataFrame([{
@@ -525,6 +559,7 @@ with decision_tab:
         st.info("Run a synthetic sequence in the Adaptive scoring tab to inspect decisions here.")
     else:
         results = st.session_state["scenario_result"]["results"]
+        st.caption(f"Decision trace for last executed fictional scenario: {st.session_state.get('scenario_name', 'Unknown')}")
         latest = results[-1]
         a, b, c = st.columns(3)
         a.metric("Final rule", latest["rule_id"])
