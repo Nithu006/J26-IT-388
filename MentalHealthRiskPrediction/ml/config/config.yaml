@@ -1,0 +1,4 @@
+# Reference existing canonical dataset mapping; do not duplicate schema here.
+# Path relative to this file. Runtime YAML loading is pending.
+dataset_contract: ../../config/dataset.example.json
+status: pending_review

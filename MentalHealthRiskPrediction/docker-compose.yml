@@ -1,0 +1,2 @@
+# Scaffold only: no application or database services are enabled.
+services: {}

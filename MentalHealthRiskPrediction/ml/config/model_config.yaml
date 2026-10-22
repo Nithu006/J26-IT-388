@@ -1,0 +1,6 @@
+# Proposed architecture only; no invented classes or features.
+status: pending_supervisor_confirmation
+encoder_id: null
+encoder_revision: null
+classifier: xgboost
+label_mapping: null

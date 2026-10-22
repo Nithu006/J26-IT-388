@@ -1,0 +1,20 @@
+{
+  "dataset_path": null,
+  "encoding": "utf-8-sig",
+  "delimiter": ",",
+  "text_column": null,
+  "label_column": null,
+  "group_column": null,
+  "language_column": null,
+  "behavior_features": [],
+  "missing_values": [""],
+  "source": null,
+  "authorization_reference": null,
+  "label_definition_reference": null,
+  "languages": [],
+  "observation_window": null,
+  "prediction_time_definition": null,
+  "timezone": null,
+  "split_strategy": null,
+  "supervisor_architecture_approval": null
+}
