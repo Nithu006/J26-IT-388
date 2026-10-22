@@ -16,7 +16,7 @@ research approval. Earlier phase notes remain in the historical structure mappin
 | Research evaluation | Plan only; no model metrics | Freeze comparison protocol, then evaluate legitimately trained models |
 | Explanations | Placeholders | Agree teammate ownership, method and research scope |
 | Authentication and persistence | Placeholders; no working storage or login | Establish need and approved privacy/access/retention design first |
-| CI and packaging | Nested workflow inactive; Docker files are scaffolding | Review a root workflow and packaging separately |
+| CI and packaging | Root component workflow added; actual CI result must be checked; Docker files are scaffolding | Review a root workflow and packaging separately |
 
 ## Work that can proceed without training
 
@@ -41,3 +41,6 @@ Never invent labels, text, approvals or results to complete a phase.
 
 See the [local demo guide](local_demo.md) for working commands and the distinction
 between earlier runtime verification and this documentation-only review.
+
+See [engineering progress and deferred tasks](engineering_progress.md) for the latest
+local checks and the backend-environment blocker.

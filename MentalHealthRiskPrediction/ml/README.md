@@ -42,7 +42,7 @@ From the component directory, with the required dependencies available:
 python -m unittest discover -s ml/tests -v
 ```
 
-The suite defines ten active audit/readiness/inference tests and seven skipped
+The suite defines 17 active audit/readiness/inference tests and seven skipped
 placeholders. Some active tests require pandas; successful artifact loading is tested
 with mocks. These checks do not establish real model training, performance or a
 serialization round trip for a fitted estimator. This documentation update does not

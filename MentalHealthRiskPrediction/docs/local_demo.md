@@ -185,6 +185,10 @@ gates were preserved. No new project, hosted Site, duplicate frontend or backend
 
 The training command is a readiness check with no fitting path. ML training,
 embeddings, fusion and evaluation remain scaffolding; permissions are not supplied
-by the software. The nested GitHub workflow is inactive, Docker files are placeholders,
+by the software. A root component workflow is now configured; the historical nested workflow remains
+inactive. Docker files are placeholders,
 and six backend tests are skipped. Vite now discovers the focused frontend test suites as well as `demo.test.jsx`.
 See [development status](development_plan.md) and [ML status](../ml/README.md).
+
+See [engineering progress](engineering_progress.md) for later software changes and
+local test results; the earlier verification sections above are historical.
